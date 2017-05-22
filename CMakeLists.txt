@@ -517,7 +517,6 @@ option(LLVM_BUILD_TESTS
 option(LLVM_INCLUDE_TESTS "Generate build targets for the LLVM unit tests." ON)
 option(LLVM_INCLUDE_GO_TESTS "Include the Go bindings tests in test build targets." ON)
 
-# Force disable TESTS
 set(LLVM_BUILD_TESTS OFF)
 set(LLVM_INCLUDE_TESTS OFF)
 set(LLVM_INCLUDE_GO_TESTS OFF)
