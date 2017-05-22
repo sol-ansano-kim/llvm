@@ -5,9 +5,6 @@ import excons
 
 env = excons.MakeBaseEnv()
 
-out_incdir = excons.OutputBaseDirectory() + "/include"
-out_libdir = excons.OutputBaseDirectory() + "/lib"
-
 debug = (excons.GetArgument("debug", 0, int) != 0)
 
 exc = (excons.GetArgument("llvm-enable-eh", 0, int) != 0)
