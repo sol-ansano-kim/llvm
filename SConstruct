@@ -5,9 +5,6 @@ import excons
 
 env = excons.MakeBaseEnv()
 
-out_incdir = excons.OutputBaseDirectory() + "/include"
-out_libdir = excons.OutputBaseDirectory() + "/lib"
-
 debug = (excons.GetArgument("debug", 0, int) != 0)
 
 exc = (excons.GetArgument("llvm-enable-eh", 0, int) != 0)
@@ -18,7 +15,8 @@ else:
 
 targets = excons.GetArgument("llvm-targets", "X86")
 
-cmake_opts = {"LLVM_INSTALL_UTILS": 0,
+cmake_opts = {"LLVM_BUILD_GLOBAL_ISEL": 0,
+              "LLVM_INSTALL_UTILS": 0,
               "LLVM_INSTALL_TOOLCHAIN_ONLY": 0,
               "LLVM_USE_FOLDERS": 1,
               "LLVM_APPEND_VC_REV": 0,
@@ -34,19 +32,26 @@ cmake_opts = {"LLVM_INSTALL_UTILS": 0,
               "LLVM_ENABLE_EH": (1 if exc else 0),
               "LLVM_ENABLE_WARNINGS": 1,
               "LLVM_ENABLE_MODULES": 0,
+              "LLVM_ENABLE_MODULE_DEBUGGING": (1 if sys.platform == "darwin" else 0),
+              "LLVM_ENABLE_LOCAL_SUBMODULE_VISIBILITY": (0 if sys.platform == "darwin" else 1),
               "LLVM_ENABLE_CXX1Y": 0,
               "LLVM_ENABLE_LIBCXX": 0,
+              "LLVM_ENABLE_LLD": 0,
               "LLVM_ENABLE_PEDANTIC": 1,
               "LLVM_ENABLE_WERROR": 0,
               "LLVM_ENABLE_ASSERTIONS": 0,
+              "LLVM_ENABLE_EXPENSIVE_CHECKS": 0,
               "LLVM_FORCE_USE_OLD_HOST_TOOLCHAIN": 0,
               "LLVM_USE_INTEL_JITEVENTS": 0,
               "LLVM_USE_OPROFILE": 0,
               "LLVM_EXTERNALIZE_DEBUGINFO": 0,
               "LLVM_USE_SPLIT_DWARF": 0,
+              "LLVM_POLLY_BUILD": 0,
+              "LLVM_POLLY_LINK_INTO_TOOLS": 0,
               "LLVM_INCLUDE_TOOLS": 1,
               "LLVM_BUILD_TOOLS": 1,
               "LLVM_INCLUDE_UTILS": 0,
+              "LLVM_BUILD_UTILS": 0,
               "LLVM_BUILD_RUNTIME": 1,
               "LLVM_INCLUDE_EXAMPLES": 0,
               "LLVM_BUILD_EXAMPLES": 0,
@@ -62,6 +67,7 @@ cmake_opts = {"LLVM_INSTALL_UTILS": 0,
               "LLVM_BUILD_LLVM_C_DYLIB": 0,
               "LLVM_BUILD_LLVM_DYLIB": 0,
               "LLVM_OPTIMIZED_TABLEGEN": 0,
+              "LLVM_ADD_NATIVE_VISUALIZERS_TO_SOLUTION": 0,
               "LLVM_TARGETS_TO_BUILD": targets,
               # Does that changes anything?
               "CMAKE_BUILD_TYPE": ("Debug" if debug else "Release"),
