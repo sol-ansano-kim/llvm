@@ -77,7 +77,8 @@ cmake_opts = {"LLVM_DEPENDENCY_DEBUGGING": 0,
               "LLVM_LIBDIR_SUFFIX": ""}
 
 outputs = []
-excons.OutputBaseDirectory() + "bin/llvm-config" + (".exe" if sys.platform == "win32" else "")
+outputs.append(excons.OutputBaseDirectory() + "/bin/llvm-config" + (".exe" if sys.platform == "win32" else ""))
+
 prjs = [
    {  "name": "llvm",
       "type": "cmake",
