@@ -76,12 +76,15 @@ cmake_opts = {"LLVM_DEPENDENCY_DEBUGGING": 0,
               "CMAKE_BUILD_TYPE": ("Debug" if debug else "Release"),
               "LLVM_LIBDIR_SUFFIX": ""}
 
+outputs = []
+excons.OutputBaseDirectory() + "bin/llvm-config" + (".exe" if sys.platform == "win32" else "")
 prjs = [
    {  "name": "llvm",
       "type": "cmake",
       "cmake-opts": cmake_opts,
       "cmake-cfgs": excons.CollectFiles(["include", "lib"], patterns=["CMakeLists.txt"], recursive=True),
-      "cmake-srcs": excons.CollectFiles(["lib"], patterns=["*.cpp"], recursive=True)
+      "cmake-srcs": excons.CollectFiles(["lib"], patterns=["*.cpp"], recursive=True),
+      "cmake-outputs": outputs
    }
 ]
 
